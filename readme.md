@@ -68,3 +68,64 @@ return [
     "base_uri" => env("WHEREBY_BASE_URI", "https://api.whereby.dev"),
 ];
 ```
+
+## Usage
+
+Open your .env file and add your public key, secret key, merchant email and payment url like so:
+
+```php
+WHEREBY_API_KEY=xxxxxxxxxxxxx
+WHEREBY_API_VERSION=xxxxxxxxxxxxx
+```
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use WherebyLaravel;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        $data = [
+            "isLocked" => false,
+            "startDate" => "2020-10-10T10:10:10Z",
+            "endDate" => "2023-10-10T10:10:10Z",
+        ];
+        $meeting = WherebyLaravel::createMeeting($data); // Create a meeting
+        dd($meeting);
+    }
+}
+```
+
+Let me explain the fluent methods this package provides a bit here.
+
+
+```php
+/**
+* Creates a new meeting
+* 
+* @param array $data [see https://whereby.dev/http-api/#/paths/~1meetings/post]
+*/
+WherebyLaravel::createMeeting($data);
+```
+
+## Contributing
+
+Please feel free to fork this package and contribute by submitting a pull request to enhance the functionalities.
+
+## How can I thank you?
+
+Why not star the github repo? I'd love the attention! Why not share the link for this repository on Twitter or HackerNews? Spread the word!
+
+Don't forget to [follow me on twitter](https://twitter.com/a4anthony_)!
+
+Thanks!
+Anthony Akro.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
