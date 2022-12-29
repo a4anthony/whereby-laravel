@@ -1,8 +1,8 @@
 # Whereby-laravel
 
-[![Latest Stable Version](https://poser.pugx.org/whereby/laravel/v/stable)](https://packagist.org/packages/whereby/laravel)
-[![Total Downloads](https://poser.pugx.org/whereby/laravel/downloads)](https://packagist.org/packages/whereby/laravel)
-[![License](https://poser.pugx.org/whereby/laravel/license)](https://packagist.org/packages/whereby/laravel)
+[![Latest Stable Version](http://poser.pugx.org/a4anthony/whereby-laravel/v)](https://packagist.org/packages/a4anthony/whereby-laravel)
+[![Total Downloads](https://poser.pugx.org/a4anthony/whereby-laravel/downloads)](https://packagist.org/packages/a4anthony/whereby-laravel)
+[![License](https://poser.pugx.org/a4anthony/whereby-laravel/license)](https://packagist.org/packages/a4anthony/whereby-laravel)
 
 
 > A Laravel package for the Whereby API
