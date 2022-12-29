@@ -5,7 +5,7 @@ namespace A4Anthony\WherebyLaravel\Providers;
 use A4Anthony\WherebyLaravel\WherebyLaravel;
 use Illuminate\Support\ServiceProvider;
 
-class WhereLaravelServiceProvider extends ServiceProvider
+class WherebyLaravelServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -14,8 +14,12 @@ class WhereLaravelServiceProvider extends ServiceProvider
     public function register()
     {
         // Register a class in the service container
-        $this->app->bind('whereby-laravel', function ($app) {
+        $this->app->bind("whereby-laravel", function ($app) {
             return new WherebyLaravel();
         });
+        $this->mergeConfigFrom(
+            __DIR__ . "/../../config/whereby-laravel.php",
+            "whereby-laravel"
+        );
     }
 }
