@@ -30,4 +30,16 @@ class WherebyLaravel
     {
         return $this->meetingRepository->create($data);
     }
+
+    /**
+     * Get a meeting
+     *
+     * @param $meetingId
+     *
+     * @return mixed
+     */
+    public function getMeeting($meetingId)
+    {
+        return $this->meetingRepository->getMeeting($meetingId);
+    }
 }

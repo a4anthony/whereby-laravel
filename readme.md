@@ -111,6 +111,14 @@ Let me explain the fluent methods this package provides a bit here.
 * @param array $data [see https://whereby.dev/http-api/#/paths/~1meetings/post]
 */
 WherebyLaravel::createMeeting($data);
+
+
+/**
+* Retrieves a meeting
+* 
+* @param string $meetingId [see https://whereby.dev/http-api/#/paths/~1meetings/post]
+*/
+WherebyLaravel::getMeeting($meetingId);
 ```
 
 ## Contributing

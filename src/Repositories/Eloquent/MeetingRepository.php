@@ -25,6 +25,12 @@ class MeetingRepository implements MeetingRepositoryInterface
         return $this->curlApi($url, "create", $data);
     }
 
+    public function getMeeting($meetingId)
+    {
+        $url = "https://api.whereby.dev/v1/meetings/" . $meetingId;
+        return $this->curlApi($url, "get-meeting");
+    }
+
     protected function curlApi($url, $action = "", $data = [])
     {
         $apiKey = config("whereby-laravel.api_key");
@@ -37,6 +43,15 @@ class MeetingRepository implements MeetingRepositoryInterface
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
+        if ($action === "get-meeting") {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt(
+                $ch,
+                CURLOPT_POSTFIELDS,
+                '{"fields": ["hostRoomUrl", "viewerRoomUrl"]}'
+            );
+        }
+
         $headers = [
             "Authorization: Bearer " . $apiKey,
             "Content-Type: application/json",
@@ -44,7 +59,24 @@ class MeetingRepository implements MeetingRepositoryInterface
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         curl_close($ch);
-        return json_decode($response);
+        if ($httpcode === 200) {
+            return json_decode($response);
+        }
+        if ($httpcode === 404) {
+            throw new \Exception("Meeting not found");
+        }
+        if ($httpcode === 401) {
+            throw new \Exception("Unauthorized");
+        }
+        if ($httpcode === 400) {
+            throw new \Exception("Bad request");
+        }
+        if ($httpcode === 500) {
+            throw new \Exception("Internal server error");
+        }
+        throw new \Exception("Unknown error");
     }
 }
