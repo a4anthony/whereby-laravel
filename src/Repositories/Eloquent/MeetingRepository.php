@@ -62,21 +62,26 @@ class MeetingRepository implements MeetingRepositoryInterface
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         curl_close($ch);
-        if ($httpcode === 200) {
+        if ($httpcode === 200 || $httpcode === 201) {
             return json_decode($response);
         }
+        if (json_decode($response) && isset(json_decode($response)->error)) {
+            $err = json_decode($response)->error;
+        } else {
+            $err = "An error occurred";
+        }
         if ($httpcode === 404) {
-            throw new \Exception("Meeting not found");
+            throw new \Exception("Meeting not found: " . $err);
         }
         if ($httpcode === 401) {
             throw new \Exception("Unauthorized");
         }
         if ($httpcode === 400) {
-            throw new \Exception("Bad request");
+            throw new \Exception("Bad request: " . $err);
         }
         if ($httpcode === 500) {
-            throw new \Exception("Internal server error");
+            throw new \Exception("Internal server error: " . $err);
         }
-        throw new \Exception("Unknown error");
+        throw new \Exception("Unknown error: " . $err);
     }
 }
