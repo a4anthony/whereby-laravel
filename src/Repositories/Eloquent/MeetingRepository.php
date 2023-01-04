@@ -31,6 +31,37 @@ class MeetingRepository implements MeetingRepositoryInterface
         return $this->curlApi($url, "get-meeting");
     }
 
+    public function webhook()
+    {
+        if (
+            strtoupper($_SERVER["REQUEST_METHOD"]) != "POST" ||
+            !array_key_exists("HTTP_WHEREBY_SIGNATURE", $_SERVER)
+        ) {
+            exit();
+        }
+
+        // Retrieve the request's body
+        $input = @file_get_contents("php://input");
+        define("WEBHOOK_SECRET", config("whereby-laravel.webhook_secret"));
+
+        $signatureFull = explode(",", $_SERVER["HTTP_WHEREBY_SIGNATURE"]);
+        $timestamp = str_replace("t=", "", $signatureFull[0]);
+        $signature = str_replace("v1=", "", $signatureFull[1]);
+
+        $payload = $timestamp . "." . $input;
+
+        // validate event do all at once to avoid timing attack
+        if ($signature !== hash_hmac("sha256", $payload, WEBHOOK_SECRET)) {
+            echo "not valid";
+            exit();
+        }
+
+        http_response_code(200);
+
+        // parse event (which is json string) as object
+        return json_decode($input);
+    }
+
     protected function curlApi($url, $action = "", $data = [])
     {
         $apiKey = config("whereby-laravel.api_key");

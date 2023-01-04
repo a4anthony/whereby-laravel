@@ -15,4 +15,9 @@ return [
      * Whereby API Base URL
      */
     "base_uri" => env("WHEREBY_BASE_URI", "https://api.whereby.dev"),
+
+    /**
+     * Whereby Webhook Secret
+     */
+    "webhook_secret" => env("WHEREBY_WEBHOOK_SECRET"),
 ];

@@ -76,6 +76,7 @@ Open your .env file and add your public key, secret key, merchant email and paym
 ```php
 WHEREBY_API_KEY=xxxxxxxxxxxxx
 WHEREBY_API_VERSION=xxxxxxxxxxxxx
+WHEREBY_WEBHOOK_SECRET=xxxxxxxxxxxxx
 ```
 
 ```php
@@ -119,6 +120,13 @@ WherebyLaravel::createMeeting($data);
 * @param string $meetingId [see https://whereby.dev/http-api/#/paths/~1meetings/post]
 */
 WherebyLaravel::getMeeting($meetingId);
+
+/**
+* Retrieves an event from webhook
+* 
+* [see https://docs.whereby.com/monitoring-usage/webhooks]
+*/
+WherebyLaravel::webhook();
 ```
 
 ## Contributing

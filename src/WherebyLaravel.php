@@ -42,4 +42,15 @@ class WherebyLaravel
     {
         return $this->meetingRepository->getMeeting($meetingId);
     }
+
+    /**
+     * Receive a meeting webhook event
+     *
+     *
+     * @return mixed|null
+     */
+    public function webhook()
+    {
+        return $this->meetingRepository->webhook();
+    }
 }
