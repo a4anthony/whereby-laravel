@@ -121,6 +121,7 @@ WherebyLaravel::createMeeting($data);
 */
 WherebyLaravel::getMeeting($meetingId);
 
+
 /**
 * Retrieves an event from webhook
 * 
